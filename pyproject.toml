@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tryxctl"
+version = "0.1.0"
+description = "Control the TRYX Panorama AIO display from Linux"
+requires-python = ">=3.9"
+dependencies = ["pyserial>=3.4", "Pillow>=9.0"]
+
+[project.scripts]
+tryxctl = "tryx.cli:main"
+tryx-gui = "tryx.gui:main"
+tryx-daemon = "tryx.daemon:main"
+
+[tool.setuptools]
+packages = ["tryx"]

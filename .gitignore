@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Reverse-engineering artifacts: too large / contain machine-specific data
+device_dump/home_log.txt
+device_dump/serialserver_log.txt
+device_dump/apk/
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store

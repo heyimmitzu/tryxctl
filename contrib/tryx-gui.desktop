@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=TRYX Panorama Control
+Comment=Change the image/video on your TRYX AIO display
+Exec=/path/to/tryxctl/.venv/bin/tryx-gui
+Path=/path/to/tryxctl
+Icon=tryx-gui
+Terminal=false
+Categories=Utility;
+StartupNotify=true

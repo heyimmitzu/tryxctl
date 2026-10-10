@@ -1,0 +1,23 @@
+# systemd *user* service — keeps the TRYX display alive across logouts/reboots.
+#
+# Install:
+#   mkdir -p ~/.config/systemd/user
+#   cp contrib/tryx-daemon.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now tryx-daemon
+#   loginctl enable-linger $USER   # keep it running after logout
+#
+# Note: adjust ExecStart to match where this project lives.
+
+[Unit]
+Description=TRYX Panorama AIO display daemon
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/tryxctl
+ExecStart=/path/to/tryxctl/.venv/bin/python -m tryx.daemon --port /dev/ttyACM0 --baud 115200
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
