@@ -56,6 +56,13 @@ class TryxApp:
         self._preview_ref = None  # keep a ref so the thumbnail isn't GC'd
         self._action_buttons: list[ttk.Button] = []
 
+        # Dialogs (file pickers, message boxes) are parented to a separate,
+        # light-themed root: Tk 9 builds them from ttk widgets, so the dark
+        # palette applied to self.root would leak in and leave light text
+        # on a white file list.
+        self._dialog_root = tk.Tk()
+        self._dialog_root.withdraw()
+
         self._setup_style()
         self._build_ui()
         self._drain_log()
@@ -369,7 +376,8 @@ class TryxApp:
     def _require_device(self) -> bool:
         if self.client is None:
             messagebox.showwarning("Not connected",
-                                   "Connect to the AIO first (Device → Connect).")
+                                   "Connect to the AIO first (Device → Connect).",
+                                   parent=self._dialog_root)
             return False
         return True
 
@@ -377,6 +385,7 @@ class TryxApp:
         if not self._require_device():
             return
         path = filedialog.askopenfilename(
+            parent=self._dialog_root,
             title="Choose an image",
             filetypes=[("Images", IMAGE_EXT), ("All files", "*.*")])
         if not path:
@@ -389,6 +398,7 @@ class TryxApp:
         if not self._require_device():
             return
         path = filedialog.askopenfilename(
+            parent=self._dialog_root,
             title="Choose a video",
             filetypes=[("Videos", VIDEO_EXT), ("All files", "*.*")])
         if not path:
@@ -400,6 +410,7 @@ class TryxApp:
         if not self._require_device():
             return
         paths = filedialog.askopenfilenames(
+            parent=self._dialog_root,
             title="Choose images for the slideshow",
             filetypes=[("Images", IMAGE_EXT), ("All files", "*.*")])
         if not paths:
