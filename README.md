@@ -53,6 +53,8 @@ It auto-detects `/dev/ttyACM*`, auto-connects on launch, shows device info in
 a status pill, and gives you **Set Image / Set Video / Slideshow / Hardware
 Monitor** buttons with a live image preview and an activity log.
 
+![tryx-gui](assets/gui.png)
+
 ## Daemon (keeps the display alive after you close the app)
 
 The device reverts to its standby screen ~60 s after the last host message, so
